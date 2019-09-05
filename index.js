@@ -85,7 +85,7 @@ server.delete("/project/:id", projectExistence, (request, response) => {
 
   newProjects.splice(newProject, 1);
 
-  return response.send("Project deleted successfully");
+  return response.json("Project deleted successfully");
 });
 
 server.listen(3333);
