@@ -78,6 +78,18 @@ server.put("/project/:id", projectExistence, (request, response) => {
   return response.json("Project updated successfully");
 });
 
+server.put("/project/:id/:index", (request, response) => {
+  const { id } = request.params;
+  const { index } = request.params;
+  const { tasks } = request.body;
+
+  const taskUpdate = newProjects.find(project => project.id == id);
+
+  taskUpdate.tasks[index] = tasks;
+
+  return response.json("Task updated successfully");
+});
+
 server.delete("/project/:id", projectExistence, (request, response) => {
   const { id } = request.params;
 
