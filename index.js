@@ -21,9 +21,9 @@ function numberOfRequests(request, response, next) {
 function projectExistence(request, response, next) {
   const { id } = request.params;
 
-  const newProject = newProjects.find(project => project.id == id);
+  const checkProject = newProjects.find(project => project.id == id);
 
-  if (!newProject) {
+  if (!checkProject) {
     return response.status(400).json("Project not found!");
   }
 
@@ -78,17 +78,21 @@ server.put("/project/:id", projectExistence, (request, response) => {
   return response.json("Project updated successfully");
 });
 
-server.put("/project/:id/:index", (request, response) => {
-  const { id } = request.params;
-  const { index } = request.params;
-  const { tasks } = request.body;
+server.put(
+  "/project/:id/tasks/:index",
+  projectExistence,
+  (request, response) => {
+    const { id } = request.params;
+    const { index } = request.params;
+    const { tasks } = request.body;
 
-  const taskUpdate = newProjects.find(project => project.id == id);
+    const taskUpdate = newProjects.find(project => project.id == id);
 
-  taskUpdate.tasks[index] = tasks;
+    taskUpdate.tasks[index] = tasks;
 
-  return response.json("Task updated successfully");
-});
+    return response.json("Task updated successfully");
+  }
+);
 
 server.delete("/project/:id", projectExistence, (request, response) => {
   const { id } = request.params;
