@@ -18,14 +18,28 @@ function numberOfRequests(request, response, next) {
   return next();
 }
 
+function projectExistence(request, response, next) {
+  const { id } = request.params;
+
+  const newProject = newProjects.find(project => project.id == id);
+
+  if (!newProject) {
+    return response.status(400).json("Project not found!");
+  }
+
+  return next();
+}
+
 server.get("/project", (request, response) => {
   return response.json(newProjects);
 });
 
-server.get("/project/:index", (request, response) => {
-  const { index } = request.params;
+server.get("/project/:id", projectExistence, (request, response) => {
+  const { id } = request.params;
 
-  return response.json(newProjects[index]);
+  const newProject = newProjects.find(project => project.id == id);
+
+  return response.json(newProject);
 });
 
 server.post("/project", (request, response) => {
@@ -39,10 +53,10 @@ server.post("/project", (request, response) => {
 
   newProjects.push(newProject);
 
-  return response.send("Project created successfully");
+  return response.json("Project successfully created");
 });
 
-server.post("/project/:id/tasks", (request, response) => {
+server.post("/project/:id/tasks", projectExistence, (request, response) => {
   const { id } = request.params;
   const { title } = request.body;
 
@@ -50,10 +64,10 @@ server.post("/project/:id/tasks", (request, response) => {
 
   newProject.tasks.push(title);
 
-  return response.send("Task created successfully");
+  return response.json("Task successfully created");
 });
 
-server.put("/project/:id", (request, response) => {
+server.put("/project/:id", projectExistence, (request, response) => {
   const { id } = request.params;
   const { title } = request.body;
 
@@ -61,17 +75,17 @@ server.put("/project/:id", (request, response) => {
 
   newProject.title = title;
 
-  return response.send("User updated successfully");
+  return response.json("Project updated successfully");
 });
 
-server.delete("/project/:id", (request, response) => {
+server.delete("/project/:id", projectExistence, (request, response) => {
   const { id } = request.params;
 
   const newProject = newProjects.findIndex(project => project.id == id);
 
   newProjects.splice(newProject, 1);
 
-  return response.send("User deleted successfully");
+  return response.send("Project deleted successfully");
 });
 
 server.listen(3333);
