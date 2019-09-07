@@ -1,6 +1,6 @@
 # Rocketseat Bootcamp
 
-### Applying-Nodejs-Concepts
+### Applying Nodejs Concepts
 
 ##### Create an application from scratch using `Express` to store projects and their tasks.
 
