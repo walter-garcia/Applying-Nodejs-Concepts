@@ -24,7 +24,7 @@ DELETE /project/:id - `http://localhost:3333/project/1` - Delete a specific proj
 
 ### Examples
 
-##### `POST /project` + `POST /project/:id/tasks`
+##### `POST /project`
 ```
 [
   {
