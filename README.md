@@ -21,7 +21,21 @@ PUT /project/:id/tasks/:id - `http://localhost:3333/project/1/tasks/1` - Update 
 
 DELETE /project/:id - `http://localhost:3333/project/1` - Delete a specific project.
 
-##### Example: route `POST /project` + `POST /project/:id/tasks`
+
+### Examples
+
+##### `POST /project` + `POST /project/:id/tasks`
+```
+[
+  {
+    "id": "1",
+    "title": "First Project",
+    "tasks": []
+  }
+]
+```
+
+##### `POST /project` + `POST /project/:id/tasks`
 ```
 [
   {
@@ -33,6 +47,7 @@ DELETE /project/:id - `http://localhost:3333/project/1` - Delete a specific proj
   }
 ]
 ```
+
 
 ### Middlewares
 
